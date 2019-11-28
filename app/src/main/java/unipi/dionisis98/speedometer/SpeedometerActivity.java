@@ -182,13 +182,7 @@ public class SpeedometerActivity extends AppCompatActivity implements LocationLi
         //myTTS.speak(message);
     }
 
-    public void showMessage(String title, String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title)
-                .setMessage(message);
-        builder.show();
-    }
+
 
     @Override
     protected void onDestroy() {
