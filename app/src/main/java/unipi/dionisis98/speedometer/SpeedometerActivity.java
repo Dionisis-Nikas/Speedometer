@@ -1,6 +1,8 @@
 package unipi.dionisis98.speedometer;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceManager;
@@ -17,6 +19,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.anastr.speedviewlib.TubeSpeedometer;
@@ -32,6 +35,10 @@ public class SpeedometerActivity extends AppCompatActivity implements LocationLi
     SharedPreferences preferences;
     public static final String KEY_PREF_SPEED_LIMIT = "speedlimit";
     public static final String KEY_PREF_METRIC = "metrics";
+    private TTS myTTS;
+    private TextView warning;
+    private TextView speedText;
+    private String speed;
 
 
     @Override
@@ -40,12 +47,19 @@ public class SpeedometerActivity extends AppCompatActivity implements LocationLi
         setContentView(R.layout.speedometer_activity);
 
         tubeSpeedometer = findViewById(R.id.speedView);
-
+        warning = findViewById(R.id.warning);
+        speedText = findViewById(R.id.speed);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        speed = preferences.getString(KEY_PREF_SPEED_LIMIT, "");
         tubeSpeedometer.setMinSpeed(0);
-        tubeSpeedometer.setMaxSpeed(300);
+        tubeSpeedometer.setMaxSpeed(Integer.parseInt(speed));
         tubeSpeedometer.setWithEffects3D(true);
         tubeSpeedometer.setWithTremble(false);
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Speedometer");
+
+
+
 
 
 
@@ -63,6 +77,12 @@ public class SpeedometerActivity extends AppCompatActivity implements LocationLi
         db = openOrCreateDatabase("Records",MODE_PRIVATE,null);
         //db.delete("Records",null,null);
         db.execSQL("CREATE TABLE IF NOT EXISTS Records(longtitude DOUBLE, latitude DOUBLE, speed FLOAT, timestamp DATETIME);");
+    }
+
+    @Override
+    public boolean onNavigateUp(){
+        finish();
+        return true;
     }
 
     @Override
@@ -111,7 +131,6 @@ public class SpeedometerActivity extends AppCompatActivity implements LocationLi
     private void updateSpeed(CLocation location){
         float nCurrentSpeed = 0;
         float nCurrentAccuracy = 0;
-        String speed = preferences.getString(KEY_PREF_SPEED_LIMIT, "");
         //Toast.makeText(this,speed,Toast.LENGTH_LONG).show();
         Long ts = System.currentTimeMillis();
 
@@ -122,6 +141,13 @@ public class SpeedometerActivity extends AppCompatActivity implements LocationLi
             Float speedf = Float.parseFloat(speed);
             if (speedf <= nCurrentSpeed){
                 insert(location.getLongitude(),location.getLatitude(),nCurrentSpeed,ts);
+                speakMessage("WARNING !! Speed limit exceeded");
+                warning.setVisibility(View.VISIBLE);
+            }
+            else{
+                warning.setVisibility(View.INVISIBLE);
+
+
             }
             nCurrentAccuracy = location.getAccuracy();
         }
@@ -130,9 +156,11 @@ public class SpeedometerActivity extends AppCompatActivity implements LocationLi
         fmt.format(Locale.US,"%5.1f",nCurrentSpeed);
         String strCurrentSpeed = fmt.toString();
         strCurrentSpeed = strCurrentSpeed.replace(" ","0");
+        String speedString = strCurrentSpeed+" Km/h";
+        speedText.setText(speedString);
 
 
-        tubeSpeedometer.speedTo(nCurrentSpeed);
+        tubeSpeedometer.speedTo(nCurrentSpeed,0);
 
     }
 
@@ -145,8 +173,30 @@ public class SpeedometerActivity extends AppCompatActivity implements LocationLi
                 + speed
                 +"',"
                 +"'2019-11-11 10:00:00');");
-                //+"datetime('now','-6days','localtime'));");
-        Toast.makeText(this,"Done!",Toast.LENGTH_SHORT).show();
+                //+"datetime('now','localtime'));");
+
+    }
+
+    public void speakMessage(String message){
+        //showMessage("WARNING",message);
+        //myTTS.speak(message);
+    }
+
+    public void showMessage(String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title)
+                .setMessage(message);
+        builder.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (myTTS != null) {
+            myTTS.stop();
+        }
+
+        super.onDestroy();
     }
 
 

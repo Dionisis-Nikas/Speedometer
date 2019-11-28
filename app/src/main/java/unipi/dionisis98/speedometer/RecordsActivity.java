@@ -1,10 +1,13 @@
 package unipi.dionisis98.speedometer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -72,6 +75,7 @@ public class RecordsActivity extends AppCompatActivity {
         selectRecords("Show All","Latest");
     }
 
+
     private void selectRecords(String selected,String ordered) {
         String query_all = "SELECT * FROM Records";
         Map<String, String> map = new HashMap<>();
@@ -82,15 +86,17 @@ public class RecordsActivity extends AppCompatActivity {
         String filter_last_month = " WHERE timestamp >= datetime('now', 'start of month')";
 
         String order_by_speed = " ORDER BY speed DESC";
-        String order_by_date = " ORDER BY timestamp DESC";
+        String order_by_date_ASC = " ORDER BY timestamp ASC";
+        String order_by_date_DESC = " ORDER BY timestamp DESC";
 
         map.put("Show All","");
         map.put("Today",filter_today);
         map.put("This Week",filter_last_week);
         map.put("This Month",filter_last_month);
 
-        map.put("By Speed",order_by_speed);
-        map.put("Latest",order_by_date);
+        map.put("Fastest",order_by_speed);
+        map.put("Oldest",order_by_date_ASC);
+        map.put("Latest",order_by_date_DESC);
         String got = (map.get(selected)+map.get(ordered));
 
         Cursor cursor = db.rawQuery(query_all+map.get(selected)+map.get(ordered) , null);
@@ -99,7 +105,7 @@ public class RecordsActivity extends AppCompatActivity {
         if (cursor.getCount() == 0)
             Toast.makeText(this, "No records found", Toast.LENGTH_LONG).show();
         else {
-
+            arrayList.clear();
             while (cursor.moveToNext()) {
                 StringBuffer buffer = new StringBuffer();
                 buffer.append(cursor.getString(0));
@@ -115,9 +121,11 @@ public class RecordsActivity extends AppCompatActivity {
                 buffer.append("\n");
                 arrayList.add(buffer.toString());
             }
-            Toast.makeText(this, "DONE", Toast.LENGTH_LONG).show();
             adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,arrayList);
+            listView.setAdapter(null);
             listView.setAdapter(adapter);
+            listView.refreshDrawableState();
+            Toast.makeText(this,selected+ordered,Toast.LENGTH_SHORT).show();
 
         }
     }

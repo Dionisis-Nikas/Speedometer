@@ -12,43 +12,25 @@ public class HomePageActivity extends AppCompatActivity {
     private Button settingsButton;
     private Button recordsButton;
     private Button speechButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        speedometerButton = (Button) findViewById(R.id.speedometer_button);
-        settingsButton = (Button) findViewById(R.id.settings_button);
-        recordsButton = (Button) findViewById(R.id.records_button);
-        speechButton = (Button) findViewById(R.id.speech_button);
+        speedometerButton = findViewById(R.id.speedometer_button);
+        settingsButton = findViewById(R.id.settings_button);
+        recordsButton = findViewById(R.id.records_button);
+        speechButton = findViewById(R.id.speech_button);
 
-        speedometerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSpeedometer();
-            }
-        });
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSettings();
-            }
-        });
+        speedometerButton.setOnClickListener(v -> openSpeedometer());
 
-        recordsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openRecords();
-            }
-        });
+        settingsButton.setOnClickListener(v -> openSettings());
 
-        speechButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSpeech();
-            }
-        });
+        recordsButton.setOnClickListener(v -> openRecords());
+
+        speechButton.setOnClickListener(v -> openSpeech());
     }
 
     public void openSpeedometer(){
@@ -64,7 +46,6 @@ public class HomePageActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void openSpeech(){
-        Intent intent = new Intent(this,SpeedometerActivity.class);
-        startActivity(intent);
+
     }
 }

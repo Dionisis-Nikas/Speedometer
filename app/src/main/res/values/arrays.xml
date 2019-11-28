@@ -18,6 +18,7 @@
     </string-array>
     <string-array name="order_arrays">
         <item>Latest</item>
-        <item>By Speed</item>
+        <item>Oldest</item>
+        <item>Fastest</item>
     </string-array>
 </resources>
