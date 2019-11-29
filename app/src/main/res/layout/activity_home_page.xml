@@ -11,28 +11,38 @@
         android:id="@+id/speedometer_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="535dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         android:text="Open Speedometer" />
 
     <Button
         android:id="@+id/settings_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/speedometer_button"
+        android:layout_marginBottom="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="431dp"
         android:text="Settings" />
 
     <Button
         android:id="@+id/records_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="334dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/settings_button"
         android:text="Speeding Records" />
+
+    <Button
+        android:id="@+id/map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="200dp"
+        android:layout_below="@+id/records_button"
+        android:text="Speeding Records (On map)" />
 
     <Button
         android:id="@+id/speech_button"

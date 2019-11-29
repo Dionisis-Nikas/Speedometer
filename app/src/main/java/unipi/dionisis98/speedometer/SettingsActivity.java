@@ -2,6 +2,8 @@ package unipi.dionisis98.speedometer;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.DigitsKeyListener;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -21,8 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     // Shared preference
     SharedPreferences mSharedPreferences;
 
-    EditTextPreference mPreferenceSpeed;
-    ListPreference mPreferenceMetrics;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

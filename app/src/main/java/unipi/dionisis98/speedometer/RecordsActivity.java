@@ -108,17 +108,15 @@ public class RecordsActivity extends AppCompatActivity {
             arrayList.clear();
             while (cursor.moveToNext()) {
                 StringBuffer buffer = new StringBuffer();
-                buffer.append(cursor.getString(0));
+                buffer.append("Date: "+cursor.getString(3));
                 buffer.append("\n");
-                buffer.append(cursor.getString(1));
+                buffer.append("Speed: "+cursor.getString(2)+"km/h");
                 buffer.append("\n");
-                buffer.append(cursor.getString(2));
+                buffer.append("Longtitude: "+cursor.getString(0));
                 buffer.append("\n");
-                //SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss " );
-                //String dateString = formatter.format(new Date(Long.parseLong(cursor.getString(3))));
-                //Long test = Long.parseLong(cursor.getString(3));
-                buffer.append(cursor.getString(3));
+                buffer.append("Latitude: "+cursor.getString(1));
                 buffer.append("\n");
+
                 arrayList.add(buffer.toString());
             }
             adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,arrayList);

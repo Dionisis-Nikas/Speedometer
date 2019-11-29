@@ -14,7 +14,9 @@
   ~ limitations under the License.
   -->
 
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory app:title="@string/speedometer_header">
 
@@ -22,15 +24,11 @@
             app:key="speedlimit"
             app:title="@string/speed_title"
             app:defaultValue="@string/speed_limit"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="true"
+            android:inputType="number"
+            />
 
-        <ListPreference
-            app:defaultValue="Km/h"
-            app:entries="@array/metrcis_entries"
-            app:entryValues="@array/metrics_values"
-            app:key="metrics"
-            app:title="@string/metrics_title"
-            app:useSimpleSummaryProvider="true" />
+
 
     </PreferenceCategory>
 

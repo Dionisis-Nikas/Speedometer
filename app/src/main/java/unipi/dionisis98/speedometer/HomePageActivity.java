@@ -20,6 +20,7 @@ public class HomePageActivity extends AppCompatActivity {
     private Button settingsButton;
     private Button recordsButton;
     private Button speechButton;
+    private Button mapButton;
     private Intent intentSpeech;
 
     @Override
@@ -31,6 +32,7 @@ public class HomePageActivity extends AppCompatActivity {
         settingsButton = findViewById(R.id.settings_button);
         recordsButton = findViewById(R.id.records_button);
         speechButton = findViewById(R.id.speech_button);
+        mapButton = findViewById(R.id.map_button);
 
         intentSpeech = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 
@@ -41,6 +43,8 @@ public class HomePageActivity extends AppCompatActivity {
         recordsButton.setOnClickListener(v -> openRecords());
 
         speechButton.setOnClickListener(v -> openSpeech());
+
+        mapButton.setOnClickListener(v -> openRecordsOnMap());
     }
 
     public void openSpeedometer(){
@@ -53,6 +57,10 @@ public class HomePageActivity extends AppCompatActivity {
     }
     public void openRecords(){
         Intent intent = new Intent(this,RecordsActivity.class);
+        startActivity(intent);
+    }
+    public void openRecordsOnMap(){
+        Intent intent = new Intent(this,MapActivity.class);
         startActivity(intent);
     }
     public void openSpeech(){
@@ -79,6 +87,12 @@ public class HomePageActivity extends AppCompatActivity {
                         break;
                     case "OPEN SPEED RECORDS":
                         openRecords();
+                        break;
+                    case "OPEN SPEED RECORDS ON MAP":
+                        openRecordsOnMap();
+                        break;
+                    case "OPEN SPEED RECORDS MAP":
+                        openRecordsOnMap();
                         break;
                     case "EXIT":
                         finish();
