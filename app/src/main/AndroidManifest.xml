@@ -39,9 +39,11 @@
 
         <activity
             android:name=".MapActivity"
+            android:label="@string/title_activity_recordsMap"
             android:parentActivityName=".HomePageActivity" />
         <activity
             android:name=".RecordsActivity"
+            android:label="@string/title_activity_records"
             android:parentActivityName=".HomePageActivity" />
         <activity
             android:name=".SettingsActivity"

@@ -18,9 +18,8 @@ import androidx.preference.PreferenceManager;
 public class SettingsActivity extends AppCompatActivity {
     // Preference Keys
     public static final String KEY_PREF_SPEED_LIMIT = "speedlimit";
-    public static final String KEY_PREF_METRIC = "metrics";
-    public static final String KEY_PREF = "sharedPrefs";
-    // Shared preference
+
+    // Shared preferences
     SharedPreferences mSharedPreferences;
 
 
@@ -39,15 +38,12 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
 
-        // Shared preference
+        // Our shared preferences
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
-        // Leguage
-        String name = mSharedPreferences.getString(KEY_PREF_SPEED_LIMIT, "");
-
-        Toast toast = Toast.makeText(this,name,Toast.LENGTH_LONG);
-        toast.show();
+        // Get the speed limit preference
+        String speed = mSharedPreferences.getString(KEY_PREF_SPEED_LIMIT, "");
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {

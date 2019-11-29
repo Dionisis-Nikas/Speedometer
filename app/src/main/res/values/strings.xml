@@ -1,23 +1,27 @@
 <resources>
     <string name="app_name">Speedometer</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_records">Speed limit records</string>
+    <string name="title_activity_recordsMap">Speed limit records on map</string>
 
+    <!-- Records filter and order by titles -->
     <string name="filter_prompt">Filter</string>
     <string name="order_prompt">Order by</string>
 
-
+    <!-- Google API key -->
     <string name="google_api_key">AIzaSyDSetcmzwauSgWaF0P-jGp3QYd-YCioxRM</string>
 
-    <!-- Preference Titles -->
+    <!-- Settings Preference Titles -->
     <string name="speedometer_header">Speedometer</string>
-    <string name="sync_header">Sync</string>
 
-    <!-- Speedometer Preferences -->
+    <!-- Speedometer Settings Preferences -->
     <string name="speed_title">Max Speed</string>
-    <string name="metrics_title">Metrics Unit</string>
     <string name="speed_limit">260</string>
 
+    <!-- Warning message -->
     <string name="warning">WARNING \n Speed limit exceeded</string>
+
+
     <string name="title_activity_maps">Map</string>
 
 </resources>
